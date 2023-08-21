@@ -47,6 +47,7 @@ export class App extends Component {
     this.setState({
       query: newQuery,
       images: [],
+      page: 1,
     })
     
   }
