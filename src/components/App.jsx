@@ -18,24 +18,25 @@ export const App = () => {
   const [largeImageURL, setlargeImageURL] = useState('');
 
   useEffect(() => {
+    if (!query) {
+      return;
+    }
     const fetchGalleryData = async () => {
-      if (query !== '') {
-        try {
-          setIsLoading(true);
-          const response = await fetchImages(query, page);
+      try {
+        setIsLoading(true);
+        const response = await fetchImages(query, page);
 
-          if (response.length === 0) {
-            Notify.failure('No found!');
-          }
-
-          setImages(prevState => [...prevState, ...response]);
-          setShowBtn(response.length >= 12);
-        } catch (error) {
-          console.error('API Error', error);
-          setImages(error);
-        } finally {
-          setIsLoading(false);
+        if (response.length === 0) {
+          Notify.failure('No found!');
         }
+
+        setImages(prevState => [...prevState, ...response]);
+        setShowBtn(response.length >= 12);
+      } catch (error) {
+        console.error('API Error', error);
+        setImages(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
