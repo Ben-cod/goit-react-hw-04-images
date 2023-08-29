@@ -24,12 +24,12 @@ export const App = () => {
           setIsLoading(true);
           const response = await fetchImages(query, page);
 
-          setImages(prevState => [...prevState, ...response]);
-          setShowBtn(response.length >= 12);
-
           if (response.length === 0) {
             Notify.failure('No found!');
           }
+
+          setImages(prevState => [...prevState, ...response]);
+          setShowBtn(response.length >= 12);
         } catch (error) {
           console.error('API Error', error);
           setImages(error);
@@ -40,7 +40,7 @@ export const App = () => {
     };
 
     fetchGalleryData(query, page);
-  }, [query, page, fetchImages, Notify]);
+  }, [query, page]);
 
   const changeQuery = newQuery => {
     setQuery(newQuery);
